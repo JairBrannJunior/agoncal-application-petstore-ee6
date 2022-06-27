@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import lombok.Data;
 
 /**
  * @author Antonio Goncalves
@@ -27,6 +28,7 @@ import java.util.GregorianCalendar;
         @NamedQuery(name = Customer.FIND_ALL, query = "SELECT c FROM Customer c")
 })
 @XmlRootElement
+@Data
 public class Customer implements Serializable {
 
     // ======================================
@@ -42,7 +44,7 @@ public class Customer implements Serializable {
     @Column(nullable = false, length = 10)
     @NotNull
     @Size(min = 1, max = 10)
-    private String password;
+    private String password; 
     @Column(nullable = false)
     @NotNull
     @Size(min = 2, max = 50)
@@ -77,7 +79,7 @@ public class Customer implements Serializable {
 
     public Customer() {
     }
-
+    
     public Customer(String firstname, String lastname, String login, String password, String email, Address address) {
         this.firstname = firstname;
         this.lastname = lastname;
@@ -133,121 +135,5 @@ public class Customer implements Serializable {
         // The password entered by the customer is not the same stored in database
         if (!pwd.equals(password))
             throw new ValidationException("Passwords don't match");
-    }
-
-    // ======================================
-    // =         Getters & setters          =
-    // ======================================
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-    public Address getHomeAddress() {
-        return homeAddress;
-    }
-
-    public void setHomeAddress(Address homeAddress) {
-        this.homeAddress = homeAddress;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    // ======================================
-    // =   Methods hash, equals, toString   =
-    // ======================================
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Customer)) return false;
-
-        Customer customer = (Customer) o;
-
-        if (!login.equals(customer.login)) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return login.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("Customer");
-        sb.append("{id=").append(id);
-        sb.append(", login='").append(login).append('\'');
-        sb.append(", password='").append(password).append('\'');
-        sb.append(", firstname='").append(firstname).append('\'');
-        sb.append(", lastname='").append(lastname).append('\'');
-        sb.append(", telephone='").append(telephone).append('\'');
-        sb.append(", email='").append(email).append('\'');
-        sb.append(", homeAddress=").append(homeAddress);
-        sb.append(", dateOfBirth=").append(dateOfBirth);
-        sb.append(", age=").append(age);
-        sb.append('}');
-        return sb.toString();
     }
 }
